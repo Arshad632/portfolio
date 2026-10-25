@@ -244,7 +244,7 @@ footer .wrap { padding-block: 20px; color: var(--muted); font-size: var(--step--
         <div class="block-head">
           <h2>Campaign dashboards</h2>
           <p>Real sending dashboards. Pick a run to see its numbers, then click the screenshot to view it full size. "Positive replies" counts interested replies, with their share of all replies.</p>
-          <p>Open tracking was switched off on these campaigns, so opens show as 0 in the screenshots. Replies are the number that matters.</p>
+          <p>The latest run is first: 4.07% reply rate and 8 opportunities worth $8K in four weeks. On the older dashboards open tracking was switched off, so opens show as 0. Replies are the number that matters.</p>
         </div>
         <div class="explorer">
           <div class="runs" id="runs"></div>
@@ -391,6 +391,9 @@ footer .wrap { padding-block: 20px; color: var(--muted); font-size: var(--step--
 (function () {
   // Campaign runs: numbers copied from the dashboards.
   var runs = [
+    { id: "rinst", label: "Latest run (Instantly)", window: "Sep 25 to Oct 23, 2026", img: "img/outbound-instantly-recent.png",
+      sent: "5,484", contactsLabel: "Sequences started", contacts: "2.1K", reply: "4.07%", replies: "84", bounce: null,
+      pos: "8", posPct: "9.52%", opps: "8", oppValue: "$8K pipeline", latest: true },
     { id: "roo", label: "Organic Outreach", window: "10 days, Organic Outreach workspace", img: "img/outbound-organic-outreach.png",
       sent: "3,652", contacts: "2,544", reply: "1.73%", replies: "44", bounce: "0.9%", pos: "14", posPct: "31.82%",
       meetings: "7", meetPct: "50% of positive replies" },
@@ -417,16 +420,17 @@ footer .wrap { padding-block: 20px; color: var(--muted); font-size: var(--step--
     detail.innerHTML =
       '<div class="detail-head"><h3>' + r.label + '</h3><span>' + r.window + '</span></div>' +
       '<div class="metrics">' +
-        m("Emails sent", r.sent) + m("People contacted", r.contacts) +
+        m("Emails sent", r.sent) + m(r.contactsLabel || "People contacted", r.contacts) +
         m("Reply rate", r.reply + " <small>(" + r.replies + ")</small>", "good") +
-        m("Bounce rate", r.bounce) +
+        (r.bounce ? m("Bounce rate", r.bounce) : "") +
         m("Positive replies", r.pos + " <small>(" + r.posPct + ")</small>", "warm") +
+        (r.opps ? m("Opportunities", r.opps + " <small>(" + r.oppValue + ")</small>", "good") : "") +
         (r.meetings ? m("Meetings booked", r.meetings + " <small>(" + r.meetPct + ")</small>", "good") : "") +
       '</div>' +
       (r.meetings ? '<span class="hint">Meetings were tracked outside the sending tool, so they are not on the screenshot.</span>' : '') +
       '<button class="shot" type="button" data-full="' + r.img + '" aria-label="View the ' + r.label + ' dashboard full size">' +
         '<img src="' + r.img + '" alt="Sending dashboard for ' + r.label + ': ' + r.sent + ' emails sent, ' + r.reply + ' reply rate">' +
-      '</button><span class="hint">Click the screenshot to enlarge. Opens read 0 because open tracking was off.</span>';
+      '</button><span class="hint">Click the screenshot to enlarge.' + (r.latest ? ' Live Instantly dashboard from the last four weeks.' : ' Opens read 0 because open tracking was off.') + '</span>';
   }
   function m(label, value, cls) {
     return '<div class="metric ' + (cls || "") + '"><span>' + label + '</span><b>' + value + '</b></div>';
