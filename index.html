@@ -392,7 +392,8 @@ footer .wrap { padding-block: 20px; color: var(--muted); font-size: var(--step--
   // Campaign runs: numbers copied from the dashboards.
   var runs = [
     { id: "roo", label: "Organic Outreach", window: "10 days, Organic Outreach workspace", img: "img/outbound-organic-outreach.png",
-      sent: "3,652", contacts: "2,544", reply: "1.73%", replies: "44", bounce: "0.9%", pos: "14", posPct: "31.82%" },
+      sent: "3,652", contacts: "2,544", reply: "1.73%", replies: "44", bounce: "0.9%", pos: "14", posPct: "31.82%",
+      meetings: "7", meetPct: "50% of positive replies" },
     { id: "roct", label: "Oct '25 to Feb '26", window: "Oct 2025 to Feb 2026", img: "img/outbound-oct-feb.png",
       sent: "26,796", contacts: "14,083", reply: "2.41%", replies: "340", bounce: "3.39%", pos: "31", posPct: "9.12%" },
     { id: "rmm", label: "Multi-month run", window: "Several months", img: "img/outbound-multi-month.png",
@@ -420,7 +421,9 @@ footer .wrap { padding-block: 20px; color: var(--muted); font-size: var(--step--
         m("Reply rate", r.reply + " <small>(" + r.replies + ")</small>", "good") +
         m("Bounce rate", r.bounce) +
         m("Positive replies", r.pos + " <small>(" + r.posPct + ")</small>", "warm") +
+        (r.meetings ? m("Meetings booked", r.meetings + " <small>(" + r.meetPct + ")</small>", "good") : "") +
       '</div>' +
+      (r.meetings ? '<span class="hint">Meetings were tracked outside the sending tool, so they are not on the screenshot.</span>' : '') +
       '<button class="shot" type="button" data-full="' + r.img + '" aria-label="View the ' + r.label + ' dashboard full size">' +
         '<img src="' + r.img + '" alt="Sending dashboard for ' + r.label + ': ' + r.sent + ' emails sent, ' + r.reply + ' reply rate">' +
       '</button><span class="hint">Click the screenshot to enlarge. Opens read 0 because open tracking was off.</span>';
