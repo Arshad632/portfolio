@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Prince: outbound campaign results, CRM and automation builds, and how I work.">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<title>Prince's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a working operator's desk. Pinned header with three tabs, one page per kind of job, evidence (dashboards, flows, Looms) shown as clickable objects. */
+:root {
+  --bg: #f4f6f3;
+  --surface: #ffffff;
+  --ink: #15201b;
+  --muted: #5b6862;
+  --line: #d9e0db;
+  --accent: #1e6a50;
+  --accent-soft: #e2efe9;
+  --signal: #b8641a;
+  --signal-soft: #f6eadf;
+  --shadow: 0 1px 2px rgba(21, 32, 27, .06), 0 8px 24px rgba(21, 32, 27, .06);
+  --display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --step--1: .82rem;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.55rem;
+  --step-3: 2.1rem;
+  --step-4: clamp(2.2rem, 5vw, 3.2rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1613; --surface: #17211d; --ink: #e6ede9; --muted: #9aa9a2; --line: #2a3832;
+    --accent: #5cc39b; --accent-soft: #1c3229; --signal: #e8a15c; --signal-soft: #3a2a1b;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1613; --surface: #17211d; --ink: #e6ede9; --muted: #9aa9a2; --line: #2a3832;
+  --accent: #5cc39b; --accent-soft: #1c3229; --signal: #e8a15c; --signal-soft: #3a2a1b;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--surface);
+}
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 12px; }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand b { font-family: var(--display); font-size: var(--step-2); letter-spacing: -.01em; }
+.brand span { color: var(--muted); font-size: var(--step--1); }
+.tabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 4px; flex-wrap: wrap; }
+.tabs button {
+  font: 500 var(--step--1) var(--body); color: var(--muted); background: none; border: 0;
+  padding: 8px 14px; border-radius: 7px; cursor: pointer;
+}
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.tabs button:hover { color: var(--ink); }
+
+main .wrap { padding-block: 40px 64px; display: grid; gap: 56px; }
+section.page { display: grid; gap: 56px; }
+
+/* Hero */
+.hero { display: grid; gap: 18px; max-width: 760px; }
+.eyebrow { font: 500 var(--step--1) var(--mono); color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
+.hero h1 { font-size: var(--step-4); letter-spacing: -.02em; }
+.hero p { color: var(--muted); font-size: var(--step-1); max-width: 62ch; }
+
+.block { display: grid; gap: 20px; }
+.block-head { display: grid; gap: 6px; max-width: 65ch; }
+.block-head h2 { font-size: var(--step-3); letter-spacing: -.015em; }
+.block-head p { color: var(--muted); }
+
+/* Headline numbers */
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.figure { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 4px; }
+.figure b { font: 600 var(--step-3) var(--display); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.figure span { color: var(--muted); font-size: var(--step--1); }
+
+/* Campaign explorer */
+.explorer { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 20px; align-items: start; }
+.runs { display: grid; gap: 8px; }
+.run {
+  text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 14px; cursor: pointer; font: inherit; color: inherit; display: grid; gap: 2px;
+}
+.run small { color: var(--muted); font-size: var(--step--1); }
+.run strong { font-family: var(--display); font-size: var(--step-1); font-variant-numeric: tabular-nums; }
+.run[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.run:hover { border-color: var(--accent); }
+.detail { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 16px; box-shadow: var(--shadow); min-width: 0; }
+.detail-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+.detail-head h3 { font-size: var(--step-2); }
+.detail-head span { color: var(--muted); font: 400 var(--step--1) var(--mono); }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.metric { border-top: 2px solid var(--line); padding-top: 8px; display: grid; gap: 2px; }
+.metric span { color: var(--muted); font-size: var(--step--1); }
+.metric b { font: 600 var(--step-2) var(--display); font-variant-numeric: tabular-nums; }
+.metric.good { border-color: var(--accent); }
+.metric.warm { border-color: var(--signal); }
+.shot { padding: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg); cursor: zoom-in; display: block; width: 100%; }
+.shot img { display: block; width: 100%; height: auto; }
+.hint { color: var(--muted); font-size: var(--step--1); }
+
+/* Steps (true sequences only) */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; counter-reset: s; }
+.step {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+  display: grid; gap: 6px; text-align: left; font: inherit; color: inherit; cursor: pointer; align-content: start;
+}
+.step::before { counter-increment: s; content: counter(s, decimal-leading-zero); font: 500 var(--step--1) var(--mono); color: var(--accent); }
+.step b { font-family: var(--display); font-size: var(--step-1); }
+.step small { color: var(--muted); font-size: var(--step--1); }
+.step[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.step-note { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 14px 16px; max-width: 70ch; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; font-size: var(--step--1); }
+.chip.strong { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+/* Loom cards */
+.looms { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.loom {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+  text-decoration: none; color: inherit;
+}
+.loom:hover { border-color: var(--accent); }
+.play { width: 44px; height: 44px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; }
+.play::after { content: ""; border-left: 13px solid var(--surface); border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 3px; }
+.loom b { font-family: var(--display); font-size: var(--step-1); display: block; }
+.loom span { color: var(--muted); font-size: var(--step--1); }
+
+/* Two-column feature */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: 24px; align-items: start; }
+.flow { display: grid; gap: 0; }
+.node {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer; display: grid; gap: 2px;
+}
+.node small { color: var(--muted); font-size: var(--step--1); }
+.node b { font-family: var(--display); }
+.node[aria-pressed="true"] { border-color: var(--signal); background: var(--signal-soft); }
+.arrow { width: 2px; height: 18px; background: var(--line); margin-left: 24px; }
+.flow-note { color: var(--muted); font-size: var(--step--1); min-height: 3em; }
+
+/* Lists */
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
+.card h3 { font-size: var(--step-1); }
+.card p { color: var(--muted); font-size: var(--step--1); }
+
+.cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+.cta p { font-family: var(--display); font-size: var(--step-1); }
+.btn { display: inline-block; background: var(--accent); color: var(--surface); text-decoration: none; padding: 10px 16px; border-radius: 8px; font-weight: 600; }
+
+/* Lightbox */
+dialog { border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); }
+dialog::backdrop { background: rgba(10, 16, 13, .78); }
+dialog img { display: block; max-width: 100%; max-height: 86vh; border-radius: 10px; }
+dialog button { position: absolute; top: 8px; right: 8px; background: var(--surface); color: var(--ink); border: 0; border-radius: 6px; padding: 6px 10px; font: 600 var(--step--1) var(--body); cursor: pointer; }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 20px; color: var(--muted); font-size: var(--step--1); }
+
+@media (max-width: 760px) {
+  .explorer, .split { grid-template-columns: minmax(0, 1fr); }
+  .runs { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  section.page { animation: rise .35s ease-out; }
+  @keyframes rise { from { transform: translateY(6px); } to { transform: none; } }
+}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><b>Prince</b><span>Outbound, CRM and automation</span></div>
+    <nav class="tabs" role="tablist" aria-label="Portfolio pages">
+      <button role="tab" id="tab-outbound" aria-controls="outbound" data-page="outbound">Outbound results</button>
+      <button role="tab" id="tab-crm" aria-controls="crm" data-page="crm">CRM &amp; automation</button>
+      <button role="tab" id="tab-work" aria-controls="work" data-page="work">How I work</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- PAGE 1: OUTBOUND -->
+    <section class="page" id="outbound" role="tabpanel" aria-labelledby="tab-outbound">
+      <div class="hero">
+        <span class="eyebrow">Cold email &amp; lead generation</span>
+        <h1>Lists that are right, emails that get answered.</h1>
+        <p>I build B2B outbound end to end: targeting, list building and enrichment in Clay, Apollo and AI Ark, email verification, sequence writing and reply handling in Instantly and Smartlead.</p>
+      </div>
+
+      <div class="figures" aria-label="Headline results, last 120 days">
+        <div class="figure"><b>45,010</b><span>emails sent in 120 days</span></div>
+        <div class="figure"><b>16,431</b><span>people contacted</span></div>
+        <div class="figure"><b>2.42%</b><span>reply rate (398 replies)</span></div>
+        <div class="figure"><b>1.58%</b><span>bounce rate</span></div>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2>Campaign dashboards</h2>
+          <p>Real sending dashboards. Pick a run to see its numbers, then click the screenshot to view it full size. "Positive replies" counts interested replies, with their share of all replies.</p>
+          <p>Open tracking was switched off on these campaigns, so opens show as 0 in the screenshots. Replies are the number that matters.</p>
+        </div>
+        <div class="explorer">
+          <div class="runs" id="runs"></div>
+          <div class="detail" id="detail" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2>How a campaign gets built</h2>
+          <p>The same six steps for every client. Tap a step to see what happens in it.</p>
+        </div>
+        <div class="steps" id="campaign-steps"></div>
+        <div class="step-note" id="campaign-note"></div>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2>Agencies I've worked with</h2>
+          <p>Cold outreach agencies where I built lists and ran campaigns.</p>
+        </div>
+        <div class="chips">
+          <span class="chip strong">Organic Outreach</span>
+          <span class="chip strong">Leads that Show</span>
+          <span class="chip strong">Stellar Growth</span>
+        </div>
+      </div>
+
+      <div class="looms">
+        <a class="loom" href="https://www.loom.com/share/3067af6b4d2245548877330d48f76232" target="_blank" rel="noopener">
+          <span class="play" aria-hidden="true"></span>
+          <span><b>Clay build walkthrough</b><span>3 minutes. Lead list building and enrichment in Clay.</span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- PAGE 2: CRM -->
+    <section class="page" id="crm" role="tabpanel" aria-labelledby="tab-crm" hidden>
+      <div class="hero">
+        <span class="eyebrow">CRM setup &amp; automation</span>
+        <h1>Every lead gets the next step, without anyone chasing it.</h1>
+        <p>I set up Follow Up Boss, GoHighLevel and HubSpot so leads are tagged, staged and followed up automatically, and I connect the rest of the stack with Zapier and n8n.</p>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2>Land &amp; Farm realtor system in Follow Up Boss</h2>
+          <p>A full system for a land and farm realtor, from the moment a lead comes in to the lead being finalized. Tap a stage to see what it does.</p>
+        </div>
+        <div class="steps" id="fub-steps"></div>
+        <div class="step-note" id="fub-note"></div>
+        <div class="looms">
+          <a class="loom" href="https://www.loom.com/share/154e5354088d45fea631f024e0070d95" target="_blank" rel="noopener">
+            <span class="play" aria-hidden="true"></span>
+            <span><b>Follow Up Boss walkthrough</b><span>The full Land &amp; Farm build, start to finish.</span></span>
+          </a>
+          <a class="loom" href="https://www.loom.com/share/ecb461fc19704dbabd5838144f5dfb99" target="_blank" rel="noopener">
+            <span class="play" aria-hidden="true"></span>
+            <span><b>GoHighLevel walkthrough</b><span>CRM setup, pipelines and nurture automations.</span></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2>Zapier: product launch flow</h2>
+          <p>When a row is added or updated in a Google Sheet, qualifying contacts get a handwritten card in the mail and a matching record in Zoho CRM. Tap a step.</p>
+        </div>
+        <div class="split">
+          <div class="flow" id="zap"></div>
+          <button class="shot" type="button" data-full="img/zapier-flow.png" aria-label="View the Zapier flow full size">
+            <img src="img/zapier-flow.png" alt="Zapier editor showing four steps: Google Sheets new or updated row, Filter by Zapier, Handwrytten send card, Zoho CRM create or update entry" loading="lazy">
+          </button>
+        </div>
+        <p class="flow-note" id="zap-note"></p>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2>Email marketing for realtors</h2>
+          <p>I've run Mailchimp email marketing for realtors and handled their Constant Contact accounts: lists, segments, templates and scheduled campaigns.</p>
+        </div>
+        <div class="chips">
+          <span class="chip">Follow Up Boss</span><span class="chip">GoHighLevel</span><span class="chip">HubSpot</span>
+          <span class="chip">Zoho CRM</span><span class="chip">Zapier</span><span class="chip">n8n</span>
+          <span class="chip">Mailchimp</span><span class="chip">Constant Contact</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: HOW I WORK -->
+    <section class="page" id="work" role="tabpanel" aria-labelledby="tab-work" hidden>
+      <div class="hero">
+        <span class="eyebrow">How I work</span>
+        <h1>Clear brief, tested build, and a handover you can run yourself.</h1>
+        <p>You work in your own accounts and tools. I build inside them, test with test contacts before anything goes live, and record short Looms so your team can edit everything later.</p>
+      </div>
+
+      <div class="block">
+        <div class="block-head"><h2>Every project, in order</h2></div>
+        <div class="steps" id="work-steps"></div>
+        <div class="step-note" id="work-note"></div>
+      </div>
+
+      <div class="block">
+        <div class="block-head"><h2>What I take on</h2></div>
+        <div class="grid3">
+          <div class="card"><h3>Outbound campaigns</h3><p>Targeting, sequences, sending and reply handling for B2B cold email.</p></div>
+          <div class="card"><h3>List building &amp; enrichment</h3><p>Verified prospect lists built in Clay, Apollo and AI Ark, checked with LeadMagic and TryKitt.</p></div>
+          <div class="card"><h3>CRM setup &amp; automation</h3><p>Stages, tags, smart lists, action plans and nurture in Follow Up Boss, GoHighLevel and HubSpot.</p></div>
+          <div class="card"><h3>Email marketing</h3><p>Newsletters, welcome and nurture series in Mailchimp and Constant Contact.</p></div>
+          <div class="card"><h3>Integrations</h3><p>Zapier and n8n flows that move data between forms, sheets and CRMs. I also build with Claude Code and APIs.</p></div>
+          <div class="card"><h3>Real estate</h3><p>Lead intake to close systems for realtors, including land and farm.</p></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head"><h2>Tools</h2></div>
+        <div class="chips">
+          <span class="chip">Clay</span><span class="chip">Apollo</span><span class="chip">AI Ark</span><span class="chip">LeadMagic</span><span class="chip">TryKitt</span>
+          <span class="chip">Instantly</span><span class="chip">Smartlead</span><span class="chip">LinkedIn Sales Navigator</span>
+          <span class="chip">Follow Up Boss</span><span class="chip">GoHighLevel</span><span class="chip">HubSpot</span><span class="chip">Zoho CRM</span><span class="chip">Salesforce</span>
+          <span class="chip">Zapier</span><span class="chip">n8n</span><span class="chip">Mailchimp</span><span class="chip">Constant Contact</span><span class="chip">Claude Code</span>
+        </div>
+      </div>
+
+      <div class="cta">
+        <p>Want this built for you? Message me on Upwork.</p>
+        <a class="btn" href="https://www.upwork.com/freelancers/~01843dd305df338731" target="_blank" rel="noopener">View my Upwork profile</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer><div class="wrap">Prince · Outbound, CRM and automation · Results shown are from real sending dashboards; client names are left out.</div></footer>
+
+<dialog id="lightbox" aria-label="Screenshot full size">
+  <button type="button" id="lb-close">Close</button>
+  <img id="lb-img" alt="">
+</dialog>
+
+<script>
+(function () {
+  // Campaign runs: numbers copied from the dashboards.
+  var runs = [
+    { id: "roo", label: "Organic Outreach", window: "10 days, Organic Outreach workspace", img: "img/outbound-organic-outreach.png",
+      sent: "3,652", contacts: "2,544", reply: "1.73%", replies: "44", bounce: "0.9%", pos: "14", posPct: "31.82%" },
+    { id: "roct", label: "Oct '25 to Feb '26", window: "Oct 2025 to Feb 2026", img: "img/outbound-oct-feb.png",
+      sent: "26,796", contacts: "14,083", reply: "2.41%", replies: "340", bounce: "3.39%", pos: "31", posPct: "9.12%" },
+    { id: "rmm", label: "Multi-month run", window: "Several months", img: "img/outbound-multi-month.png",
+      sent: "7,068", contacts: "3,629", reply: "2.56%", replies: "93", bounce: "1.9%", pos: "5", posPct: "5.38%" },
+    { id: "r30", label: "Last 30 days", window: "30 days", img: "img/outbound-30-days.png",
+      sent: "9,623", contacts: "4,536", reply: "2.49%", replies: "113", bounce: "1.17%", pos: "5", posPct: "4.42%" },
+    { id: "r120", label: "Last 120 days", window: "120 days", img: "img/outbound-120-days.png",
+      sent: "45,010", contacts: "16,431", reply: "2.42%", replies: "398", bounce: "1.58%", pos: "10", posPct: "2.51%" }
+  ];
+  var runsEl = document.getElementById("runs"), detail = document.getElementById("detail");
+  runs.forEach(function (r, i) {
+    var b = document.createElement("button");
+    b.className = "run"; b.type = "button"; b.dataset.id = r.id;
+    b.innerHTML = "<small>" + r.label + "</small><strong>" + r.sent + " sent</strong>";
+    b.addEventListener("click", function () { showRun(i); });
+    runsEl.appendChild(b);
+  });
+  function showRun(i) {
+    var r = runs[i];
+    runsEl.querySelectorAll(".run").forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    detail.innerHTML =
+      '<div class="detail-head"><h3>' + r.label + '</h3><span>' + r.window + '</span></div>' +
+      '<div class="metrics">' +
+        m("Emails sent", r.sent) + m("People contacted", r.contacts) +
+        m("Reply rate", r.reply + " <small>(" + r.replies + ")</small>", "good") +
+        m("Bounce rate", r.bounce) +
+        m("Positive replies", r.pos + " <small>(" + r.posPct + ")</small>", "warm") +
+      '</div>' +
+      '<button class="shot" type="button" data-full="' + r.img + '" aria-label="View the ' + r.label + ' dashboard full size">' +
+        '<img src="' + r.img + '" alt="Sending dashboard for ' + r.label + ': ' + r.sent + ' emails sent, ' + r.reply + ' reply rate">' +
+      '</button><span class="hint">Click the screenshot to enlarge. Opens read 0 because open tracking was off.</span>';
+  }
+  function m(label, value, cls) {
+    return '<div class="metric ' + (cls || "") + '"><span>' + label + '</span><b>' + value + '</b></div>';
+  }
+  showRun(0);
+
+  // Step pickers
+  function stepper(containerId, noteId, steps) {
+    var box = document.getElementById(containerId), note = document.getElementById(noteId);
+    steps.forEach(function (s, i) {
+      var b = document.createElement("button");
+      b.className = "step"; b.type = "button";
+      b.innerHTML = "<b>" + s[0] + "</b><small>" + s[1] + "</small>";
+      b.addEventListener("click", function () { pick(i); });
+      box.appendChild(b);
+    });
+    function pick(i) {
+      box.querySelectorAll(".step").forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+      note.textContent = steps[i][2];
+    }
+    pick(0);
+  }
+  stepper("campaign-steps", "campaign-note", [
+    ["Target", "ICP and signals", "Agree who to reach and why now: industry, size, roles and the buying signals that make an account worth emailing this month."],
+    ["Build the list", "Clay, Apollo, AI Ark", "Pull accounts and decision makers, then enrich them with the data points the copy will use."],
+    ["Verify", "LeadMagic, TryKitt", "Find and verify emails before anything is sent, so bounces stay low and sending accounts stay healthy."],
+    ["Write", "Short sequences", "Plain, short emails built around the prospect's situation, with a clear and easy next step."],
+    ["Send", "Instantly, Smartlead", "Load the campaign into the sequencer the client already uses, with steady daily volumes."],
+    ["Handle replies", "Interested leads", "Sort replies, follow up with interested leads and pass them on, then adjust targeting and copy from what the numbers show."]
+  ]);
+  stepper("fub-steps", "fub-note", [
+    ["Lead intake", "Every source", "New leads come into Follow Up Boss from each lead source, in one place."],
+    ["Tag & stage", "On arrival", "Each lead is tagged and staged as soon as it lands, so the right automation can pick it up."],
+    ["Follow-up", "Email and text", "Leads drop into the matching email and text sequence, so first contact goes out fast."],
+    ["Long-term nurture", "Not ready yet", "Leads who aren't ready move into a slower nurture track instead of going cold."],
+    ["Finalized", "Through to close", "Leads move through the pipeline with an automation at each step, so the agent always knows the next action."]
+  ]);
+  stepper("work-steps", "work-note", [
+    ["Brief", "Goals and access", "We agree the goal, the scope and what done looks like. I work inside your own accounts and tools."],
+    ["Build", "In your stack", "I build the lists, sequences, CRM stages or automations, with daily updates while the work runs."],
+    ["Test", "Test contacts first", "Every automation runs on test contacts before going live, so nothing misfires on a real lead."],
+    ["Handover", "Short Looms", "You get short Loom videos and notes, so your team can edit and run everything without me."]
+  ]);
+
+  // Zapier flow
+  var zap = [
+    ["Google Sheets", "New or updated row", "The trigger: a contact is added or changed in the launch sheet."],
+    ["Filter by Zapier", "Filter conditions", "Only contacts that meet the launch criteria continue down the flow."],
+    ["Handwrytten", "Send card", "A real handwritten card is mailed to the contact."],
+    ["Zoho CRM", "Create or update entry", "The contact's record is created or updated in Zoho CRM, so sales can follow up."]
+  ];
+  var zapEl = document.getElementById("zap"), zapNote = document.getElementById("zap-note");
+  zap.forEach(function (z, i) {
+    if (i) { var a = document.createElement("div"); a.className = "arrow"; zapEl.appendChild(a); }
+    var b = document.createElement("button");
+    b.className = "node"; b.type = "button";
+    b.innerHTML = "<small>Step " + (i + 1) + "</small><b>" + z[0] + "</b><small>" + z[1] + "</small>";
+    b.addEventListener("click", function () { pickZap(i); });
+    zapEl.appendChild(b);
+  });
+  function pickZap(i) {
+    zapEl.querySelectorAll(".node").forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    zapNote.textContent = zap[i][2];
+  }
+  pickZap(0);
+
+  // Lightbox
+  var lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img");
+  document.addEventListener("click", function (e) {
+    var s = e.target.closest(".shot");
+    if (!s) return;
+    lbImg.src = s.dataset.full;
+    lbImg.alt = s.getAttribute("aria-label") || "";
+    if (lb.showModal) lb.showModal(); else window.open(s.dataset.full, "_blank");
+  });
+  document.getElementById("lb-close").addEventListener("click", function () { lb.close(); });
+  lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+
+  // Tabs with bookmarkable hash
+  var tabs = document.querySelectorAll(".tabs button"), pages = ["outbound", "crm", "work"];
+  function show(name) {
+    if (pages.indexOf(name) < 0) name = "outbound";
+    pages.forEach(function (p) { document.getElementById(p).hidden = p !== name; });
+    tabs.forEach(function (t) { t.setAttribute("aria-selected", t.dataset.page === name ? "true" : "false"); });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () {
+      show(t.dataset.page);
+      try { history.replaceState(null, "", "#" + t.dataset.page); } catch (err) {}
+      window.scrollTo(0, 0);
+    });
+  });
+  window.addEventListener("hashchange", function () { show(location.hash.slice(1)); });
+  show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
